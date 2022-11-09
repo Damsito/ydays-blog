@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:14
+    container_name: db
+    ports:
+      - "5400:5432"
+    environment:
+      - POSTGRES_DB=app
+      - POSTGRES_USER=app
+      - POSTGRES_PASSWORD=app
+    volumes:
+      - ./docker/db:/var/lib/postgresql
+    restart: always
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: mailhog
+    restart: on-failure
+    ports:
+      - '1025:1025'
+      - '8025:8025'
+
