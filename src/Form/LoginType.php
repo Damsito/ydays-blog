@@ -6,7 +6,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,26 +15,21 @@ final class LoginType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
-                'label' => 'Email',
+                'label' => 'Tapez votre Email',
                 'attr' => [
                     'placeholder' => 'Email',
-                ]
+                ],
             ])
             ->add('password', PasswordType::class, [
-                'label' => 'Password',
+                'label' => 'Tapez votre mot de passe',
                 'attr' => [
-                    'placeholder' => 'Password',
-                ]
+                    'placeholder' => 'Mot de passe',
+                ],
             ])
             ->add('_remember_me', CheckboxType::class, [
                 'required' => false,
-                'label' => 'Remember me'
-            ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'Login',
-                'attr' => [
-                    'class' => 'btn primary',
-                ],
+                'attr' => array('checked' => 'checked'),
+                'label' => 'Se souvenir de moi',
             ]);
     }
 

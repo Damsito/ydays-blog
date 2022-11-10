@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Comment{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Create new Comment</h1>
+        {{ include('comment/_form.html.twig') }}
+        <a class="btn btn-secondary" href="{{ path('app_article_show', {id: article.id}) }}">back to article</a>
+    </div>
+{% endblock %}

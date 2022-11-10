@@ -2,45 +2,49 @@
 
 {% block title %}Log in!{% endblock %}
 
+ {% block stylesheets %}
+     {{ parent() }}
+     {{ encore_entry_link_tags('login') }}
+ {% endblock %}
+
 {% block body %}
-    {#    <form method="post"> #}
-    {#        {% if error %} #}
-    {#            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div> #}
-    {#        {% endif %} #}
 
-    {#        {% if app.user %} #}
-    {#            <div class="mb-3"> #}
-    {#                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a> #}
-    {#            </div> #}
-    {#        {% endif %} #}
-
-    {#        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1> #}
-    {#        <label for="inputEmail">Email</label> #}
-    {#        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" #}
-    {#               autocomplete="email" required autofocus> #}
-    {#        <label for="inputPassword">Password</label> #}
-    {#        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" #}
-    {#               required> #}
-
-    {#        <input type="hidden" name="_csrf_token" #}
-    {#               value="{{ csrf_token('authenticate') }}" #}
-    {#        > #}
-
-    {#        #}{# #}
-    {#        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality. #}
-    {#        See https://symfony.com/doc/current/security/remember_me.html #}
-
-    {#        <div class="checkbox mb-3"> #}
-    {#            <label> #}
-    {#                <input type="checkbox" name="_remember_me"> Remember me #}
-    {#            </label> #}
-    {#        </div> #}
-    {#        #}
-
-    {#        <button class="btn btn-lg btn-primary" type="submit"> #}
-    {#            Sign in #}
-    {#        </button> #}
-    {#    </form> #}
-
-    {{ form(form) }}
+    <div class="container-login">
+        <div class="login-left">
+            <div class="login-header">
+                <h1>Bienvenue sur notre Application</h1>
+                <p>Connectez-vous pour accéder au site</p>
+                {% if error %}
+                    <div class="error-message">{{ error.messageKey|trans(error.messageData, 'security', 'fr') }}</div>
+                {% endif %}
+                {{ form_start(form, {'attr': {'class': 'login-form'}}) }}
+                <div class="login-form-content">
+                    <div class="form-item">
+                        {{ form_label(form.email) }}
+                        {{ form_widget(form.email) }}
+                    </div>
+                    <div class="form-item">
+                        {{ form_label(form.password) }}
+                        {{ form_widget(form.password) }}
+                    </div>
+                    <div class="form-item">
+                        <div class="checkbox">
+                            {{ form_label(form._remember_me, {'label_attr': {'class': 'checkboxLabel'}}) }}
+                            {{ form_widget(form._remember_me) }}
+                        </div>
+                    </div>
+                    <button type="submit">Connectez-vous</button>
+                    <span>Pas encore inscrit ? Inscris-toi <a href="{{ path('app_register') }}">ici</a></span>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+        <div class="login-right">
+            <img src="{{ asset('build/images/login.png') }}" alt="">
+        </div>
+    </div>
+    {% block javascripts %}
+        {{ parent() }}
+        {{ encore_entry_script_tags('login') }}
+    {% endblock %}
 {% endblock %}

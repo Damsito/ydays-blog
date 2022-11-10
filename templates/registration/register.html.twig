@@ -1,16 +1,46 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Register{% endblock %}
+ {% block stylesheets %}
+     {{ parent() }}
+     {{ encore_entry_link_tags('login') }}
+ {% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+    <div class="container-login">
+        <div class="login-left">
+            <div class="login-header">
+                <h1>Bienvenue sur notre Application</h1>
+                <p>Inscrivez-vous pour accéder au site</p>
+                {{ form_start(registrationForm, {'attr': {'class': 'login-form'}}) }}
+                <div class="sign-up-form-content">
+                    <div class="form-item">
+                        {{ form_label(registrationForm.email) }}
+                        {{ form_widget(registrationForm.email) }}
+                        <div class="error-message">
+                            {{ form_errors(registrationForm.email) }}
+                        </div>
+                    </div>
+                    <div class="form-item">
+                        {{ form_label(registrationForm.plainPassword) }}
+                        {{ form_widget(registrationForm.plainPassword) }}
+                        <div class="error-message">
+                            {{ form_errors(registrationForm.plainPassword) }}
+                        </div>
+                    </div>
 
-    {{ form_start(registrationForm) }}
-    {{ form_row(registrationForm.email) }}
-    {{ form_row(registrationForm.plainPassword, {
-        label: 'Password'
-    }) }}
-
-    <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+                    <button type="submit">Inscrivez-vous</button>
+                    <span>Déjà inscrit ? Connectez-vous <a href="{{ path('app_login') }}">ici</a></span>
+                </div>
+                {{ form_end(registrationForm) }}
+            </div>
+        </div>
+        <div class="login-right">
+            <img src="{{ asset('build/images/login.png') }}" alt="">
+        </div>
+    </div>
+    {% block javascripts %}
+        {{ parent() }}
+        {{ encore_entry_script_tags('login') }}
+    {% endblock %}
 {% endblock %}

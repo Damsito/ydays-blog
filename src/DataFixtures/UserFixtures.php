@@ -11,13 +11,12 @@ class UserFixtures extends Fixture
 {
     public function __construct(
         private UserPasswordHasherInterface $passwordHasher
-    )
-    {
+    ) {
     }
 
     public function load(ObjectManager $manager): void
     {
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 100; ++$i) {
             $user = new User();
 
             $user

@@ -1,0 +1,46 @@
+<div class="card">
+    <img class="card-img" width="100px"
+         src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/pasta.jpg"
+         alt="Bologna">
+    <div class="">
+        <div class="d-flex">
+            <a href="#" class="btn btn-light btn-sm">{{ article.category }}</a>
+            {{ article.likes|length }}
+            <form method="post" action="{{ path('app_like', {'id': article.id}) }}">
+                <input type="hidden" name="_token" value="{{ csrf_token('like' ~ article.id) }}">
+                {% set params = app.request.attributes.get('_route_params').id is defined ? { 'id': app.request.attributes.get('_route_params').id} : {} %}
+                <input type="hidden" name="_route_back"
+                       value="{{ path(app.request.attributes.get('_route'), params) }}">
+                <button class="border-0 bg-white">
+                    {% if article.likes|filter(like => like.likeur == app.user)|length -%}
+                        <i class="fa-solid fa-heart"></i>
+                    {% else %}
+                        <i class="fa-regular fa-heart"></i>
+                    {% endif %}
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">{{ article.titre }}</h4>
+        <p class="card-text">{{ article.description }}</p>
+        <div class="d-flex">
+            {% if show is not defined %}
+                <a href="{{ path('app_article_show', {'id': article.id}) }}" class="btn btn-info">Read article</a>
+            {% endif %}
+            {% if app.user == article.createur %}
+                <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="btn btn-info ms-2">Edit article</a>
+                <div class="ms-2">
+                    {{ include('article/_delete_form.html.twig') }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="card-footer text-muted d-flex justify-content-between bg-transparent border-top-0">
+        <div class="views">{{ article.createdAt ? article.createdAt|date('Y-m-d h:i:s') : '' }}
+        </div>
+        <div class="stats">
+            <i class="far fa-comment"></i> {{ article.comments|length }}
+        </div>
+    </div>
+</div>
