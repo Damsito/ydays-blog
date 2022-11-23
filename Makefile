@@ -34,7 +34,12 @@ NPM_BUILD = $(NPM) run build
 NPM_DEV = $(NPM) run dev
 NPM_WATCH = $(NPM) run watch
 #------------#
-
+install:
+	$(COMPOSER_INSTALL)
+	$(NPM_INSTALL)
+	$(NPM_WATCH)
+	$(SYMFONY_SERVER_START)
+.PHONY: install
 #---PHPQA---#
 PHPQA = jakzal/phpqa
 PHPQA_RUN = $(DOCKER_RUN) --init -it --rm -v $(PWD):/project -w /project $(PHPQA)
